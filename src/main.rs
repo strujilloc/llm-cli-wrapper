@@ -2,6 +2,7 @@ extern crate clap;
 extern crate reqwest;
 
 use clap::Parser;
+use dotenv;
 use reqwest::header::{HeaderMap, AUTHORIZATION, CONTENT_TYPE};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
@@ -94,6 +95,7 @@ async fn request_completion(query: &str, system_prompt: &str) -> Result<String, 
 
 #[tokio::main]
 async fn main() -> Result<(), String> {
+    dotenv::dotenv().ok();
     let args = Args::parse();
     let context = args.context;
     // validate Arguments
