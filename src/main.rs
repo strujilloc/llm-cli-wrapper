@@ -1,11 +1,12 @@
 extern crate clap;
 extern crate reqwest;
-
 use clap::Parser;
 use dotenv;
 use reqwest::header::{HeaderMap, AUTHORIZATION, CONTENT_TYPE};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
+use std::env;
+use std::path::PathBuf;
 
 #[derive(Parser, Debug)]
 #[command(
@@ -95,7 +96,12 @@ async fn request_completion(query: &str, system_prompt: &str) -> Result<String, 
 
 #[tokio::main]
 async fn main() -> Result<(), String> {
-    dotenv::dotenv().ok();
+    // Load the .env file from the constructed path
+    let dotenv_path =
+        PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap_or_else(|_| ".".into())).join(".env");
+
+    dotenv::from_path(dotenv_path).ok();
+
     let args = Args::parse();
     let context = args.context;
     // validate Arguments
