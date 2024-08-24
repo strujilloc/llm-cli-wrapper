@@ -1,6 +1,3 @@
-# Created by https://www.toptal.com/developers/gitignore/api/rust,visualstudiocode,dotenv
-# Edit at https://www.toptal.com/developers/gitignore?templates=rust,visualstudiocode,dotenv
-
 ### dotenv ###
 .env
 
@@ -38,5 +35,3 @@ Cargo.lock
 # Ignore all local history of files
 .history
 .ionide
-
-# End of https://www.toptal.com/developers/gitignore/api/rust,visualstudiocode,dotenv
