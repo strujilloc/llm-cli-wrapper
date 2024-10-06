@@ -83,6 +83,14 @@ async fn request_completion(query: &str, system_prompt: &str) -> Result<String, 
         .send()
         .await
         .map_err(|e| format!("Error: {}", e))?;
+    let status_code=response.status();
+    if status_code==401{
+        return Err("Unauthorized access, please check your API key".to_string())
+    }
+    if status_code!=200{
+        return Err(format!("Failed to get response from OpenAI, status code: {}", status_code))
+    }
+    
     let response_text = response.text().await.map_err(|e| format!("Error: {}", e))?;
     // Deserialize response
     let parsed_response: OpenAIResponse = serde_json::from_str(&response_text)
